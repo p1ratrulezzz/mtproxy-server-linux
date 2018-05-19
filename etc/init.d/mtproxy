@@ -15,7 +15,7 @@ NAME=mtproxy
 PIDFILE=/var/run/$NAME.pid
 #This is the command to be run, give the full pathname
 DAEMON=/opt/mtproto-proxy/mtproxyd
-DAEMON_OPTS="somesecrethash 6666"
+DAEMON_OPTS="marcopolo 6666"
 USER=mtproxy
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"

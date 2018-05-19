@@ -96,5 +96,18 @@ Note: you should edit the file /etc/init.d/mtproxy and set your own directory/se
 
 (use Alpha release as it is the only release availalble that supports MTproto proxies)
 
-Server: your_ip_address_or_domain_name Port: 6666
+Server: your_domain_name_or_ip_address_of_vds_server Port: 6666
 Secret: your_secret_from_step_4
+
+Note: ip address of VDS/VPS server can be revealed by running a command
+
+```bash
+   curl ipinfo.io/ip
+```
+
+or (may not be usefull on servers that have internal IP but this is not our case so this should be OK)
+```
+   ifconfig
+```   
+
+

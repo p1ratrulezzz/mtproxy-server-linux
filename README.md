@@ -40,7 +40,7 @@ Note: password you set doesn't matter
   ./mtproxyd marcopolo 6666
 ```
 6666 - is the port to listen on
-marcopolo - is the seed to generate hashes. Its quite safe to leave it this way.
+marcopolo - is the seed to generate hashes. Its quite safe to leave it this way. It might ask you to login using your existing telegram account. This is ok, just enter your phone number and then an autorization code that you will get via Telegram. This is just a one time setup.
 
 You will see that daemon is running and it will write on first lines:
 
@@ -50,10 +50,44 @@ You will see that daemon is running and it will write on first lines:
 
 abcdefghihfhasfasfsf - is the Secret (some kind of a password) used to auth on your proxy server. Keep this in secret, copy to some place.
 
-5. Install a linux service to start/stop/restart and autostart proxy
+Now press Ctrl+C to terminate the proxy process.
 
-5. Final steps. Check permissions for files
+5. Check permissions for files
 
 ```bash
   chown /opt/mtproto-proxy mtproxy:mtproxy
 ```
+
+6. Install a linux service to start/stop/restart and autostart proxy
+
+```bash
+   wget -O /etc/init.d/mtproxy 'https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/etc/init.d/mtproxy'
+   chmod +x /etc/init.d/mtproxy
+   systemctl daemon-reload
+   systemctl start mtproxy
+   systemctl enable mtproxy
+```
+
+And check if it is working
+
+```bash
+   systemctl start mtproxy
+```
+
+You should see that it is "active (running)"
+
+```
+ mtproxy.service - LSB: MTProxy service
+   Loaded: loaded (/etc/init.d/mtproxy; bad; vendor preset: enabled)
+   Active: active (running) since Thu 2018-05-17 21:55:08 UTC; 1 day 9h ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 16657 ExecStop=/etc/init.d/mtproxy stop (code=exited, status=0/SUCCESS)
+  Process: 16752 ExecStart=/etc/init.d/mtproxy start (code=exited, status=0/SUCCESS)
+    Tasks: 14
+   Memory: 55.3M
+      CPU: 1min 14.837s
+   CGroup: /system.slice/mtproxy.service
+
+```
+
+Note: you should edit the file /etc/init.d/mtproxy and set your own directory/seed/port if you're an experienced user.

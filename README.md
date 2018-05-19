@@ -91,3 +91,10 @@ You should see that it is "active (running)"
 ```
 
 Note: you should edit the file /etc/init.d/mtproxy and set your own directory/seed/port if you're an experienced user.
+
+7. Test your installation on telegram desktop client which can be downloaded from https://github.com/telegramdesktop/tdesktop/releases
+
+(use Alpha release as it is the only release availalble that supports MTproto proxies)
+
+Server: your_ip_address_or_domain_name Port: 6666
+Secret: your_secret_from_step_4

@@ -92,7 +92,9 @@ You should see that it is "active (running)"
 
 Note: you should edit the file /etc/init.d/mtproxy and set your own directory/seed/port if you're an experienced user.
 
-7. Test your installation on telegram desktop client which can be downloaded from https://github.com/telegramdesktop/tdesktop/releases
+7. Test your installation
+* Using telegram desktop client which can be downloaded from https://github.com/telegramdesktop/tdesktop/releases
+* Using Android client that can be downloaded from https://t.me/tgbeta/2975
 
 (use Alpha release as it is the only release availalble that supports MTproto proxies)
 

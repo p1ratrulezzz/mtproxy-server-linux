@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-$debug = true; // Set this to true to avoid automatic updates of this script
+$debug = false; // Set this to true to avoid automatic updates of this script
 
 
 
@@ -17,7 +17,7 @@ if (!file_exists('madeline.php')) {
 }
 
 if (!$debug) {
-    $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
+    $mtproxyd = file_get_contents('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd');
     if ($mtproxyd) {
         file_put_contents($argv[0], $mtproxyd);
     }

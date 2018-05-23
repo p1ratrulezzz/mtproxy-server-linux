@@ -5,7 +5,7 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 
 # Installation
 
-The daemon file is https://github.com/danog/MadelineProto/blob/master/mtproxyd (don't forget to Star this repo)
+The initial daemon file is in https://github.com/danog/MadelineProto (don't forget to Star this repo)
 
 ## Tutorial for Ubuntu 16.04 Server
 
@@ -35,20 +35,25 @@ Note: password you set doesn't matter
 
 ```bash
   cd /opt/mtproto-proxy
-  wget -O mtproxyd 'https://raw.githubusercontent.com/danog/MadelineProto/master/mtproxyd'
+  wget -O mtproxyd 'https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd'
   chmod +x mtproxyd
   ./mtproxyd marcopolo 6666
 ```
 6666 - is the port to listen on
-marcopolo - is the seed to generate hashes. Its quite safe to leave it this way. It might ask you to login using your existing telegram account. This is ok, just enter your phone number and then an autorization code that you will get via Telegram. This is just a one time setup.
+marcopolo - is the seed to generate hashes. Its is not safe to leave it this way, replace it with your secret seend. Better to use one of the generated from (Random.org)[https://www.random.org/passwords/?num=5&len=16&format=html&rnd=new]. It might ask you to login using your existing telegram account. This is ok, just enter your phone number and then an autorization code that you will get via Telegram. This is just a one time setup.
 
-You will see that daemon is running and it will write on first lines:
+You will see that daemon is running and it will create a file secret.txt.
 
 ```
-  your secret phrase abcdefghihfhasfasfsf
+  cat secret.txt
 ```
 
-abcdefghihfhasfasfsf - is the Secret (some kind of a password) used to auth on your proxy server. Keep this in secret, copy to some place.
+it will show you your secret password for connecting to your proxy. Something like:
+```
+   abcdefghihfhasfasfsfsgfagasg
+```
+
+abcdefghihfhasfasfsfsgfagasg - is the Secret (some kind of a password) used to auth on your proxy server. Keep this in secret, copy to some place.
 
 Now press Ctrl+C to terminate the proxy process.
 
@@ -90,7 +95,7 @@ You should see that it is "active (running)"
 
 ```
 
-Note: you should edit the file /etc/init.d/mtproxy and set your own directory/seed/port if you're an experienced user.
+Note: you should edit the file /etc/init.d/mtproxy and set your own seed and port.
 
 7. Test your installation
 * Using telegram desktop client which can be downloaded from https://github.com/telegramdesktop/tdesktop/releases

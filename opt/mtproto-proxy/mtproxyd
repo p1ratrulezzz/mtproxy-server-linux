@@ -2,10 +2,6 @@
 <?php
 $debug = false; // Set this to true to avoid automatic updates of this script
 
-
-
-
-
 echo "mtproxyd - Copyright by Daniil Gentili, licensed under AGPLv3\n\n";
 if (!isset($argv[2])) {
     echo "Usage: ".$argv[0]." seed port\n\nseed is any string or word that will be used as seed to generate the proxy secret\nport is the port where to start listening for connections\n";
@@ -17,7 +13,7 @@ if (!file_exists('madeline.php')) {
 }
 
 if (!$debug) {
-    $mtproxyd = file_get_contents('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd');
+    $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
     if ($mtproxyd) {
         file_put_contents($argv[0], $mtproxyd);
     }
@@ -32,16 +28,19 @@ chmod('secret.txt', 0600);
 
 $MadelineProto = new \danog\MadelineProto\API('proxy.madeline');
 $MadelineProto->parse_dc_options($MadelineProto->help->getConfig()['dc_options']);
-$handler = new \danog\MadelineProto\Server(['type' => AF_INET, 'protocol' => 0, 'address' => '54.38.53.171', 'port' => $argv[2], 'handler' => '\danog\MadelineProto\Server\Proxy', 'extra' => ['madeline' => $MadelineProto->API->datacenter->sockets, 'secret' => hex2bin($secret), 'timeout' => 10]]);
 
 $errors = 0;
 $clean = false;
+$protocol = getprotobyname('tcp');
+$protocol = $protocol === false ? 0 : $protocol;
 for ($i=0; !$clean && $i<10; $i++) {
 	try {
+		$handler = new \danog\MadelineProto\Server(['type' => AF_INET, 'protocol' => $protocol, 'address' => '54.38.53.171', 'port' => $argv[2], 'handler' => '\danog\MadelineProto\Server\Proxy', 'extra' => ['madeline' => $MadelineProto->API->datacenter->sockets, 'secret' => hex2bin($secret), 'timeout' => 15]]);
 		$handler->start();
 		$clean = true;
 	}
 	catch (\Exception $e) {
+		unset($handler); // Call destructor
 		$clean = false;
 		$errors++;
 		sleep(3);

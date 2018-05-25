@@ -35,7 +35,7 @@ $protocol = getprotobyname('tcp');
 $protocol = $protocol === false ? 0 : $protocol;
 for ($i=0; !$clean && $i<10; $i++) {
 	try {
-		$handler = new \danog\MadelineProto\Server(['type' => AF_INET, 'protocol' => $protocol, 'address' => '54.38.53.171', 'port' => $argv[2], 'handler' => '\danog\MadelineProto\Server\Proxy', 'extra' => ['madeline' => $MadelineProto->API->datacenter->sockets, 'secret' => hex2bin($secret), 'timeout' => 15]]);
+		$handler = new \danog\MadelineProto\Server(['type' => AF_INET, 'protocol' => $protocol, 'address' => '0.0.0.0', 'port' => $argv[2], 'handler' => '\danog\MadelineProto\Server\Proxy', 'extra' => ['madeline' => $MadelineProto->API->datacenter->sockets, 'secret' => hex2bin($secret), 'timeout' => 15]]);
 		$handler->start();
 		$clean = true;
 	}

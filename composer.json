@@ -1,0 +1,17 @@
+{
+    "name": "p1ratrulezzz/mtproxy-server-linux",
+    "description": "Proxy server for MTProto (Telegram)",
+    "authors": [
+        {
+            "name": "P1ratRuleZZZ",
+            "email": "git@p1ratrulezzz.me"
+        }
+    ],
+    "require": {
+        "byjg/cache-engine": "4.0.*",
+        "composer/installers": "^1.5"
+    },
+    "config": {
+        "vendor-dir": "opt/mtproto-proxy/vendor"
+    }
+}

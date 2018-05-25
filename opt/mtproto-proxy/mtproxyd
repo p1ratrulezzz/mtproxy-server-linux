@@ -1,48 +1,83 @@
 #!/usr/bin/env php
 <?php
-$debug = false; // Set this to true to avoid automatic updates of this script
+$debug = TRUE; // Set this to true to avoid automatic updates of this script
 
-echo "mtproxyd - Copyright by Daniil Gentili, licensed under AGPLv3\n\n";
+$cwd = getcwd();
+chdir(__DIR__);
+
+echo "mtproxyd - Telegram MTProto proxy server daemon. Copyright by Daniil Gentili (P1ratRuleZZZ mod), licensed under AGPLv3\n\n";
 if (!isset($argv[2])) {
-    echo "Usage: ".$argv[0]." seed port\n\nseed is any string or word that will be used as seed to generate the proxy secret\nport is the port where to start listening for connections\n";
-    exit(1);
+  echo "Usage: " . $argv[0] . " seed port\n\nseed is any string or word that will be used as seed to generate the proxy secret\nport is the port where to start listening for connections\n";
+  exit(1);
 }
 
+// @fixme:
 if (!file_exists('madeline.php')) {
-    copy('https://phar.madelineproto.xyz/madeline.php', 'madeline.php');
+  copy('https://phar.madelineproto.xyz/madeline.php', 'madeline.php');
 }
 
 if (!$debug) {
-    $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
-    if ($mtproxyd) {
-        file_put_contents($argv[0], $mtproxyd);
-    }
+  // @fixme:
+  $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
+  if ($mtproxyd) {
+    file_put_contents($argv[0], $mtproxyd);
+  }
 }
 
+require_once "vendor/autoload.php";
 require_once 'madeline.php';
+require_once "src/MadelineProto/ServerProxy.php";
 
-$secret = md5($argv[1]);
+$secret_file = 'secret.txt';
+
+if (file_exists($secret_file) && ($secret = file_get_contents($secret_file)) && strlen(trim($secret)) == 32) {
+  // Secret was set already
+  $secret = trim($secret);
+}
+else {
+  // Generate new secret
+  $secret = hash_pbkdf2('sha256', $argv[1], openssl_random_pseudo_bytes(256), 1000, 32, FALSE);
+
+  file_put_contents($secret_file, $secret);
+}
+
+// Fix permissions
+chmod($secret_file, 0600);
 echo "Secret is $secret\n";
-file_put_contents('secret.txt', $secret);
-chmod('secret.txt', 0600);
 
 $MadelineProto = new \danog\MadelineProto\API('proxy.madeline');
 $MadelineProto->parse_dc_options($MadelineProto->help->getConfig()['dc_options']);
 
-$errors = 0;
-$clean = false;
 $protocol = getprotobyname('tcp');
-$protocol = $protocol === false ? 0 : $protocol;
-for ($i=0; !$clean && $i<10; $i++) {
-	try {
-		$handler = new \danog\MadelineProto\Server(['type' => AF_INET, 'protocol' => $protocol, 'address' => '0.0.0.0', 'port' => $argv[2], 'handler' => '\danog\MadelineProto\Server\Proxy', 'extra' => ['madeline' => $MadelineProto->API->datacenter->sockets, 'secret' => hex2bin($secret), 'timeout' => 15]]);
-		$handler->start();
-		$clean = true;
-	}
-	catch (\Exception $e) {
-		unset($handler); // Call destructor
-		$clean = false;
-		$errors++;
-		sleep(3);
-	}
+$protocol = $protocol === FALSE ? 0 : $protocol;
+
+$server_options = [
+  'type' => AF_INET,
+  'protocol' => $protocol,
+  'address' => '0.0.0.0',
+  'port' => $argv[2],
+  'handler' => '\danog\MadelineProto\Server\Proxy',
+  'daemon_id' => uniqid('daemon_'),
+  'extra' => [
+    'madeline' => $MadelineProto->API->datacenter->sockets,
+    'secret' => hex2bin($secret),
+    'timeout' => 15,
+  ],
+];
+
+$clean = FALSE;
+for ($i = 0; !$clean && $i < 10; $i++) {
+  try {
+    $handler = new \danog\MadelineProto\ServerProxy($server_options);
+    $handler->start();
+    $clean = TRUE;
+  }
+  catch (\Exception $e) {
+    unset($handler); // Call destructor
+    $clean = FALSE;
+    sleep(10);
+  }
 }
+
+// Return back to old working directory
+chdir($cwd);

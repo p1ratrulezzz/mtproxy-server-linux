@@ -1,0 +1,6 @@
+opt/mtproto-proxy/vendor
+opt/mtproto-proxy/madeline.phar*
+opt/mtproto-proxy/proxy.madeline
+opt/mtproto-proxy/proxy.madeline.lock
+opt/mtproto-proxy/secret.txt
+

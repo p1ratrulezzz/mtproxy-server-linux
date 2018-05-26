@@ -9,15 +9,6 @@
     ],
     "require": {
         "byjg/cache-engine": "4.0.*",
-        "composer/installers": "^1.5",
         "malkusch/lock": "^1.1"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "sh ./install.sh"
-        ],
-        "post-update-cmd": [
-            "sh ./install.sh"
-        ]
     }
 }

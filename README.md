@@ -6,7 +6,7 @@
 Easy install for experienced users
 
 ```bash
-   composer install p1ratrulezzz/mtproxy-server-linux ^0.1.0
+   composer require p1ratrulezzz/mtproxy-server-linux ^0.1.0
 ```
 
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!

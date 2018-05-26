@@ -19,6 +19,7 @@ namespace danog\MadelineProto;
 use ByJG\Cache\Psr16\FileSystemCacheEngine;
 use ByJG\Cache\Psr16\ShmopCacheEngine;
 use ByJG\Cache\Psr6\CachePool;
+use malkusch\lock\mutex\FlockMutex;
 
 class ServerProxy extends Server {
 
@@ -27,6 +28,11 @@ class ServerProxy extends Server {
   private $pids = [];
 
   private $mypid;
+
+  /**
+   * @var \malkusch\lock\mutex\LockMutex
+   */
+  protected $mutex;
 
   /**
    * @var \ByJG\Cache\Psr6\CachePool
@@ -48,45 +54,62 @@ class ServerProxy extends Server {
     $this->settings = $settings;
     $this->mypid = getmypid();
 
+    $this->mutex = new FlockMutex(fopen(tempnam(sys_get_temp_dir(), 'flock'), 'w'));
+
     $this->daemon_id = $settings['daemon_id'];
     $this->cachepool = new CachePool(new FileSystemCacheEngine('cache_mtproxy'));
 
     $this->log("Daemon id is {$this->daemon_id}");
 
-    $this->cleanOldPids();
+    $self = $this;
+    $this->mutex->synchronized(function () use (&$self) {
+      return $self->daemonInit();
+    });
 
+    $this->cleanOldPids();
+    $this->addPid($this->mypid);
+  }
+
+  public function daemonInit() {
     $item = $this->cachepool->getItem('daemon_ids');
     $daemon_ids = $item->isHit() ? $item->get() : [];
     $daemon_ids[$this->daemon_id] = $this->daemon_id;
 
     $item->set($daemon_ids);
     $this->cachepool->save($item);
-
-    // $this->addPid($this->mypid);
   }
 
   protected function addPid($pid) {
-    $item = $this->cachepool->getItem('daemon:' . $this->daemon_id);
-    $pids = $item->isHit() ? $item->get() : [];
-    $pids[$pid] = $pid;
-    $item->set($pids);
+    $pool = $this->cachepool;
+    $self = $this;
+    $this->mutex->synchronized(function() use ($pid, $pool, &$self) {
+      $item = $pool->getItem('daemon:' . $this->daemon_id);
+      $pids = $item->isHit() ? $item->get() : [];
+      $pids[$pid] = $pid;
+      $item->set($pids);
 
-    $this->cachepool->save($item);
+      $pool->save($item);
 
-    $this->log("Added pid {$pid}");
+      $self->log("Added pid {$pid}");
+    });
   }
 
   protected function delPid($pid) {
-    $item = $this->cachepool->getItem('daemon:' . $this->daemon_id);
-    $pids = $item->isHit() ? $item->get() : [];
-    if (isset($pids[$pid])) {
-      unset($pids[$pid]);
-      $this->log("Deleted pid {$pid}");
-    }
+    $pool = $this->cachepool;
+    $self = $this;
 
-    $item->set($pids);
+    $this->mutex->synchronized(function() use ($pid, $pool, &$self) {
+      $item = $pool->getItem('daemon:' . $this->daemon_id);
+      $pids = $item->isHit() ? $item->get() : [];
+      if (isset($pids[$pid])) {
+        unset($pids[$pid]);
+        $self->log("Deleted process {$pid}");
+      }
 
-    $this->cachepool->save($item);
+      $item->set($pids);
+
+      $pool->save($item);
+    });
   }
 
   public function log($param, $level = \danog\MadelineProto\Logger::NOTICE) {
@@ -94,6 +117,13 @@ class ServerProxy extends Server {
   }
 
   protected function cleanOldPids() {
+    $self = $this;
+    return $this->mutex->synchronized(function () use (&$self) {
+      return $self->cleanOldPidsUnsync();
+    });
+  }
+
+  protected function cleanOldPidsUnsync() {
     $item_daemon_ids = $this->cachepool->getItem('daemon_ids');
     if ($item_daemon_ids->isHit()) {
       $ids = $item_daemon_ids->get();
@@ -109,11 +139,13 @@ class ServerProxy extends Server {
         if ($item->isHit()) {
           $pids = $item->get();
           foreach ($pids as $pid) {
+           $kill_status = posix_kill($pid, SIGTERM) === true ? 'killed' : 'not killed';
+           $this->log("Process {$pid} was " . $kill_status);
            if (-1 !== pcntl_waitpid($pid, $status, WNOHANG)) {
-             $this->log("Process with id {$pid} is finished");
+             $this->log("Process {$pid} finished");
            }
            else {
-             $this->log("Can't finish process with id {$pid}");
+             $this->log("Can't wait for process {$pid}");
            }
           }
 
@@ -136,7 +168,7 @@ class ServerProxy extends Server {
     $this->sock->bind($this->settings['address'], $this->settings['port']);
     $this->sock->listen();
     $this->sock->setBlocking(TRUE);
-    $timeout = 2;
+    $timeout = 10;
     $this->sock->setOption(\SOL_SOCKET, \SO_RCVTIMEO, $timeout);
     $this->sock->setOption(\SOL_SOCKET, \SO_SNDTIMEO, $timeout);
     \danog\MadelineProto\Logger::log('Server started! Listening on ' . $this->settings['address'] . ':' . $this->settings['port']);
@@ -146,8 +178,8 @@ class ServerProxy extends Server {
         if ($sock = $this->sock->accept()) {
           $this->addPid($this->handle($sock));
         }
-      } catch (\danog\MadelineProto\Exception $e) {
       }
+      catch (\danog\MadelineProto\Exception $e) {}
     }
   }
 
@@ -164,6 +196,8 @@ class ServerProxy extends Server {
      */
     $handler = new $this->settings['handler']($socket, $this->settings['extra'], NULL, NULL, NULL, NULL, NULL);
     $handler->loop();
+
+    $this->delPid(getmypid());
     die;
   }
 
@@ -179,9 +213,23 @@ class ServerProxy extends Server {
 
       $this->delPid($this->mypid);
       \danog\MadelineProto\Logger::log('Done, closing main process');
+
+      $this->cleanOldPids();
       return;
     }
+  }
 
-    $this->cleanOldPids();
+  public function sig_handler($sig)
+  {
+    switch ($sig) {
+      case SIGTERM:
+      case SIGINT:
+        $this->delPid(getmypid());
+        exit;
+      case SIGCHLD:
+        pcntl_waitpid(-1, $status);
+        $this->delPid(getmypid());
+        break;
+    }
   }
 }

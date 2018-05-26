@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "86f2bc3bfd04f42b22da486163516fed",
-    "content-hash": "bcf921b5b23018e6f56526d507dcb230",
+    "hash": "1e180583ae17738036c7fff6b7cb8189",
+    "content-hash": "256684a2bc29d0b171ae30a3629905fb",
     "packages": [
         {
             "name": "byjg/cache-engine",
@@ -172,6 +172,122 @@
                 "zikula"
             ],
             "time": "2017-12-29 09:13:20"
+        },
+        {
+            "name": "malkusch/lock",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-lock/lock.git",
+                "reference": "741eb270587f67cbe2f6d9a4163e536ab811c394"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-lock/lock/zipball/741eb270587f67cbe2f6d9a4163e536ab811c394",
+                "reference": "741eb270587f67cbe2f6d9a4163e536ab811c394",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/random_compat": "^1|^2",
+                "php": ">=5.6",
+                "psr/log": "^1"
+            },
+            "require-dev": {
+                "ext-memcached": "*",
+                "ext-pdo_mysql": "*",
+                "ext-pdo_sqlite": "*",
+                "ext-redis": "^2.2.4|^3.0|^4.0",
+                "kriswallsmith/spork": "^0.3",
+                "mikey179/vfsstream": "^1.5.0",
+                "php-mock/php-mock-phpunit": "^1",
+                "phpunit/phpunit": "^5",
+                "predis/predis": "~1.0",
+                "zetacomponents/system-information": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "malkusch\\lock\\": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Malkusch",
+                    "email": "markus@malkusch.de",
+                    "homepage": "http://markus.malkusch.de",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Willem Stuursma-Ruwen",
+                    "email": "willem@stuursma.name",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mutex library for exclusive code execution.",
+            "homepage": "https://github.com/malkusch/lock",
+            "keywords": [
+                "cas",
+                "flock",
+                "lock",
+                "memcache",
+                "mutex",
+                "redis",
+                "redlock",
+                "semaphore"
+            ],
+            "time": "2018-04-15 09:36:06"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v2.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
+                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2018-04-04 21:24:14"
         },
         {
             "name": "psr/cache",

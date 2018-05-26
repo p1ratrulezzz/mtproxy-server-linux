@@ -13,12 +13,12 @@ if (!isset($argv[2])) {
 
 // @fixme:
 if (!file_exists('madeline.php')) {
-  copy('https://phar.madelineproto.xyz/madeline.php', 'madeline.php');
+  copy('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/madeline.php', 'madeline.php');
 }
 
 if (!$debug) {
   // @fixme:
-  $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
+  $mtproxyd = file_get_contents('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd');
   if ($mtproxyd) {
     file_put_contents($argv[0], $mtproxyd);
   }
@@ -27,6 +27,7 @@ if (!$debug) {
 require_once "vendor/autoload.php";
 require_once 'madeline.php';
 require_once "src/MadelineProto/ServerProxy.php";
+require_once "src/MadelineProto/Server/ProxyCustom.php";
 
 $secret_file = 'secret.txt';
 
@@ -46,7 +47,15 @@ chmod($secret_file, 0600);
 echo "Secret is $secret\n";
 
 $MadelineProto = new \danog\MadelineProto\API('proxy.madeline');
-$MadelineProto->parse_dc_options($MadelineProto->help->getConfig()['dc_options']);
+
+$dc_options = $MadelineProto->help->getConfig()['dc_options'];
+//foreach ($dc_options as $key => &$options) {
+//    if ($options['ipv6']) {
+//        unset($dc_options[$key]);
+//    }
+//}
+
+$MadelineProto->parse_dc_options($dc_options);
 
 $protocol = getprotobyname('tcp');
 $protocol = $protocol === FALSE ? 0 : $protocol;

@@ -33,7 +33,7 @@ Note: password you set doesn't matter
 
 ```bash
   cd /opt/
-  composer require p1ratrulezzz/mtproxy-server-linux ^0.1.0
+  composer require p1ratrulezzz/mtproxy-server-linux ^0.1
   sh vendor/p1ratrulezzz/mtproxy-server-linux/install.sh
 ``
 

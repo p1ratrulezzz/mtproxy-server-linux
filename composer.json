@@ -12,7 +12,9 @@
         "composer/installers": "^1.5",
         "malkusch/lock": "^1.1"
     },
-    "config": {
-        "vendor-dir": "opt/mtproto-proxy/vendor"
-    }
+    "scripts": {
+        "post-install-cmd": [
+            "sh ./install.sh"
+        ]
+    },
 }

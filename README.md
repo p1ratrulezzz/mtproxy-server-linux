@@ -1,5 +1,8 @@
 # MTProxy Server for Telegram clients
 
+[![Latest Stable Version](https://poser.pugx.org/p1ratrulezzz/mtproxy-server-linux/v/stable)](https://packagist.org/packages/p1ratrulezzz/mtproxy-server-linux)
+[![Latest Unstable Version](https://poser.pugx.org/p1ratrulezzz/mtproxy-server-linux/v/unstable)](https://packagist.org/packages/p1ratrulezzz/mtproxy-server-linux)
+
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!
 Plus: Sponsored channels are coming. That means that your proxy can force your users to subscribe to some channel. This can be as a motivation to setup such a proxy.
 
@@ -14,7 +17,8 @@ The initial daemon file is in https://github.com/danog/MadelineProto (don't forg
 
 ```bash
    apt-get update
-   apt-get install php7.0-cli php7.0-xml php7.0-curl php7.0-opcache
+   apt-get install php7.0-cli php7.0-xml php7.0-curl php7.0-opcache php7.0-zip
+   apt-get install composer
 ```
 
 2. Create mtproxy user
@@ -25,22 +29,25 @@ The initial daemon file is in https://github.com/danog/MadelineProto (don't forg
 
 Note: password you set doesn't matter
 
-3. Create a directory for proxy daemon
+3. Download a package into /opt folder
 
 ```bash
-  mkdir /opt/mtproto-proxy
+  cd /opt/
+  composer require p1ratrulezzz/mtproxy-server-linux ^0.1.0
+  sh vendor/p1ratrulezzz/mtproxy-server-linux/install.sh
 ``
 
-4. Download and run proxy for the first time
+After that you will see that the directory /opt/mtproto-proxy has been created.
+
+4. Run proxy for the first time
 
 ```bash
   cd /opt/mtproto-proxy
-  wget -O mtproxyd 'https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd'
   chmod +x mtproxyd
   ./mtproxyd marcopolo 6666
 ```
 6666 - is the port to listen on
-marcopolo - is the seed to generate hashes. Its is not safe to leave it this way, replace it with your secret seend. Better to use one of the generated from (Random.org)[https://www.random.org/passwords/?num=5&len=16&format=html&rnd=new]. It might ask you to login using your existing telegram account. This is ok, just enter your phone number and then an autorization code that you will get via Telegram. This is just a one time setup.
+marcopolo - is the seed to generate hashes. It is safe to leave it this way as created hash will be random anyway. But it is better toset your own seed and use for that the one of the generated from [Random.org](https://www.random.org/passwords/?num=5&len=16&format=html&rnd=new) password of any length. It might ask you to login using your existing telegram account. This is ok, just enter your phone number and then an autorization code that you will get via Telegram. This is just a one time setup.
 
 You will see that daemon is running and it will create a file secret.txt.
 
@@ -48,12 +55,14 @@ You will see that daemon is running and it will create a file secret.txt.
   cat secret.txt
 ```
 
+Note: you can manualy create this file and write your own 32 character string in it. In this case it won't be rewritten.
+
 it will show you your secret password for connecting to your proxy. Something like:
 ```
    abcdefghihfhasfasfsfsgfagasg
 ```
 
-abcdefghihfhasfasfsfsgfagasg - is the Secret (some kind of a password) used to auth on your proxy server. Keep this in secret, copy to some place.
+abcdefghihfhasfasfsfsgfagasg - is the 32 characters secret (some kind of a password) used to auth on your proxy server. This password will be written to secret.txt file and you always can reveal it if you have root access.
 
 Now press Ctrl+C to terminate the proxy process.
 
@@ -104,7 +113,7 @@ Note: you should edit the file /etc/init.d/mtproxy and set your own seed and por
 (use Alpha release as it is the only release availalble that supports MTproto proxies)
 
 Server: your_domain_name_or_ip_address_of_vds_server Port: 6666
-Secret: your_secret_from_step_4
+Secret: secret_from_secret.txt_file
 
 Note: ip address of VDS/VPS server can be revealed by running a command
 

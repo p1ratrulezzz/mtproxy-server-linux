@@ -9,10 +9,6 @@
     ],
     "require": {
         "byjg/cache-engine": "4.0.*",
-        "composer/installers": "^1.5",
         "malkusch/lock": "^1.1"
-    },
-    "config": {
-        "vendor-dir": "opt/mtproto-proxy/vendor"
     }
 }

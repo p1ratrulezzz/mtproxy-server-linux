@@ -13,12 +13,12 @@ if (!isset($argv[2])) {
 
 // @fixme:
 if (!file_exists('madeline.php')) {
-  copy('https://phar.madelineproto.xyz/madeline.php', 'madeline.php');
+  copy('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/madeline.php', 'madeline.php');
 }
 
 if (!$debug) {
   // @fixme:
-  $mtproxyd = file_get_contents('https://phar.madelineproto.xyz/mtproxyd?v=new');
+  $mtproxyd = file_get_contents('https://raw.githubusercontent.com/p1ratrulezzz/mtproxy-server-linux/master/opt/mtproto-proxy/mtproxyd');
   if ($mtproxyd) {
     file_put_contents($argv[0], $mtproxyd);
   }

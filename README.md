@@ -1,5 +1,7 @@
 # MTProxy Server for Telegram clients
 
+[![Latest Stable Version](https://poser.pugx.org/p1ratrulezzz/mtproxy-server-linux/v/stable)](https://packagist.org/packages/p1ratrulezzz/mtproxy-server-linux)
+
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!
 Plus: Sponsored channels are coming. That means that your proxy can force your users to subscribe to some channel. This can be as a motivation to setup such a proxy.
 

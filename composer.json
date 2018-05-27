@@ -1,6 +1,7 @@
 {
     "name": "p1ratrulezzz/mtproxy-server-linux",
     "description": "Proxy server for MTProto (Telegram)",
+    "license": "AGPL-3.0",
     "authors": [
         {
             "name": "P1ratRuleZZZ",

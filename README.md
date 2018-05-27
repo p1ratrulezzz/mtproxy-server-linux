@@ -69,7 +69,7 @@ Now press Ctrl+C to terminate the proxy process.
 5. Check permissions for files
 
 ```bash
-  chown /opt/mtproto-proxy mtproxy:mtproxy
+  chown -R mtproxy:mtproxy /opt/mtproto-proxy
 ```
 
 6. Install a linux service to start/stop/restart and autostart proxy

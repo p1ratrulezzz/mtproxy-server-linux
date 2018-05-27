@@ -20,3 +20,4 @@ if (strpos($contents, 'new \danog\MadelineProto\Server') && in_array($contents, 
 }
 
 require 'madeline.phar';
+

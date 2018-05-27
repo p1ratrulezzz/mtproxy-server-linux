@@ -63,7 +63,7 @@ $protocol = $protocol === FALSE ? 0 : $protocol;
 $server_options_config = [];
 if (file_exists("config.inc")) {
   $config = (include "config.inc");
-  $server_options_config = isset($config['server']) ? $config['server'] : []
+  $server_options_config = isset($config['server']) ? $config['server'] : [];
 }
 
 $server_options = $server_options_config + [

@@ -6,6 +6,15 @@
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!
 Plus: Sponsored channels are coming. That means that your proxy can force your users to subscribe to some channel. This can be as a motivation to setup such a proxy.
 
+# Before you start installation
+
+Some VPS providers are blocking Telegram connections from their servers. Here is the list of these services and it will be filled in during some time, but for now there are already theese ones:
+
+* OVH
+* IPhoster
+
+Don't use these providers for your MTProto proxy server.
+
 # Installation
 
 The initial daemon file is in https://github.com/danog/MadelineProto (don't forget to Star this repo)

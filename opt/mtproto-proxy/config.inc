@@ -1,3 +1,5 @@
+<?php
+      
 // additional configs for server. Check options in mtproxyd file
 
 return [

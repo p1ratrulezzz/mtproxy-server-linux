@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-$debug = TRUE; // Set this to true to avoid automatic updates of this script
+$debug = false; // Set this to true to avoid automatic updates of this script
 
 $cwd = getcwd();
 chdir(__DIR__);

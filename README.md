@@ -126,4 +126,7 @@ or (may not be usefull on servers that have internal IP but this is not our case
    ifconfig
 ```   
 
+## Other proxy server implementations
+
+Check this account https://github.com/mtProtoProxy to see all the MTProto proxy implementations (and dont forget to follow)
 

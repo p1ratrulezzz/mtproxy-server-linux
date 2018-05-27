@@ -77,9 +77,9 @@ $server_options = [
 $clean = FALSE;
 for ($i = 0; !$clean && $i < 10; $i++) {
   try {
+    $clean = TRUE;
     $handler = new \danog\MadelineProto\ServerProxy($server_options);
     $handler->start();
-    $clean = TRUE;
   }
   catch (\Exception $e) {
     unset($handler); // Call destructor

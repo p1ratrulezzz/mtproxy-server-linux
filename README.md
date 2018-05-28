@@ -19,7 +19,7 @@ Repo: https://github.com/FreedomPrevails/JSMTProxy
 
 Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
 
-Server: https://t.me/proxy?server=proxy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
+Server #1: https://t.me/proxy?server=proxy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
 
 ## [Python](https://github.com/alexbers/mtprotoproxy)
 

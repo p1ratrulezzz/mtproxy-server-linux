@@ -3,6 +3,21 @@
 [![Latest Stable Version](https://poser.pugx.org/p1ratrulezzz/mtproxy-server-linux/v/stable)](https://packagist.org/packages/p1ratrulezzz/mtproxy-server-linux)
 [![Latest Unstable Version](https://poser.pugx.org/p1ratrulezzz/mtproxy-server-linux/v/unstable)](https://packagist.org/packages/p1ratrulezzz/mtproxy-server-linux)
 
+# Testing  MTProto proxy servers
+
+### PHP (this repo)  
+
+Note: there is an issue with Android clients. It's impossible to send messages. Desktop clients work great.
+
+https://t.me/proxy?server=54.38.132.214&port=6666&secret=7eb5a9c0b76971496098bda828b71236
+https://t.me/proxy?server=proxy.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f
+
+## [NodeJS](/FreedomPrevails/JSMTProxy)
+
+Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
+
+https://t.me/proxy?server=proxy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
+
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!
 Plus: Sponsored channels are coming. That means that your proxy can force your users to subscribe to some channel. This can be as a motivation to setup such a proxy.
 

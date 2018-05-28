@@ -14,6 +14,7 @@ https://t.me/proxy?server=proxy.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf39
 
 ## [NodeJS](/FreedomPrevails/JSMTProxy)
 
+Repo: https://github.com/FreedomPrevails/JSMTProxy
 Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
 
 https://t.me/proxy?server=proxy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
@@ -152,5 +153,8 @@ or (may not be usefull on servers that have internal IP but this is not our case
 
 ## Other proxy server implementations
 
-Check this account https://github.com/mtProtoProxy to see all the MTProto proxy implementations (and dont forget to follow)
+Check this account https://github.com/mtProtoProxy to see all the MTProto proxy implementations.
+
+It is possible to use daemon script from this repo to integrate with any of these servers (except nodejs, for nodejs use pm2 upstart)
+
 

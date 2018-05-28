@@ -27,7 +27,7 @@ Note: Requires to install python3 and python3-crypto packages via apt-get
 
 Repo: https://github.com/alexbers/mtprotoproxy
 
-Server #1: https://t.me/proxy?server=proxy.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382 - MTProto proxy python #2
+Server #1: https://t.me/proxy?server=proxy.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
 
 This is just a useful scripts for setting up your own mtprotocol proxy for telegram. Note: this proxy once created can be used by other users who you shared this proxy with and it doesn't give them access to your account, so its completely safe to use it and share with friends!
 Plus: Sponsored channels are coming. That means that your proxy can force your users to subscribe to some channel. This can be as a motivation to setup such a proxy.

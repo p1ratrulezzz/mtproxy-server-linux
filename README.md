@@ -13,7 +13,7 @@ Server #1: https://t.me/proxy?server=54.38.132.214&port=6666&secret=7eb5a9c0b769
 
 Server #2: https://t.me/proxy?server=proxy.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f 
 
-## [NodeJS](/FreedomPrevails/JSMTProxy)
+## [NodeJS](https://github.com/FreedomPrevails/JSMTProxy)
 
 Repo: https://github.com/FreedomPrevails/JSMTProxy
 
@@ -34,7 +34,7 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 
 # Before you start installation
 
-Some VPS providers are blocking Telegram connections from their servers. Here is the list of these services and it will be filled in during some time, but for now there are already theese ones:
+Some VPS providers are blocking Telegram connections from their servers. Here is the list of these services and it will be filled in during some time, but for now there are already these ones:
 
 * OVH
 * IPhoster
@@ -94,10 +94,12 @@ Note: you can manualy create this file and write your own 32 character string in
 
 it will show you your secret password for connecting to your proxy. Something like:
 ```
-   abcdefghihfhasfasfsfsgfagasg
+   38f75d6bb9f8138e53489cf1b7a132ec
 ```
 
-abcdefghihfhasfasfsfsgfagasg - is the 32 characters secret (some kind of a password) used to auth on your proxy server. This password will be written to secret.txt file and you always can reveal it if you have root access.
+38f75d6bb9f8138e53489cf1b7a132ec - is the 32 characters secret (some kind of a password) used to auth on your proxy server. This password will be written to secret.txt file and you always can reveal it if you have root access. The easiest way to creat your own password is to use md5 hash of any of provided string using any md5 generator (online tools are also OK).
+
+Note: the password can be set manualy. It MUST be any HEX-string (only digits and characters from range a-f and always lowercased). This key is used to encrypt your traffic using AES encryption.
 
 Now press Ctrl+C to terminate the proxy process.
 
@@ -167,4 +169,7 @@ Check this account https://github.com/mtProtoProxy to see all the MTProto proxy 
 
 It is possible to use daemon script from this repo to integrate with any of these servers (except nodejs, for nodejs use pm2 upstart)
 
+## Another version of installator for MTProxy (madeline driven)
+
+Check the repo: https://github.com/aquigni/MTProxySystemd . It provides an easy-install shell script. It installs the same version of MTProto Proxy as provided in this [repo](https://github.com/danog/MadelineProto)
 

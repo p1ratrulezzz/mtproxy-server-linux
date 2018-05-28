@@ -10,6 +10,7 @@
 Note: there is an issue with Android clients. It's impossible to send messages. Desktop clients work great.
 
 https://t.me/proxy?server=54.38.132.214&port=6666&secret=7eb5a9c0b76971496098bda828b71236
+
 https://t.me/proxy?server=proxy.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f
 
 ## [NodeJS](/FreedomPrevails/JSMTProxy)

@@ -67,7 +67,7 @@ class ServerProxy extends Server {
     });
 
     $this->cleanOldPids();
-    $this->addPid($this->mypid);
+    // $this->addPid($this->mypid);
   }
 
   public function daemonInit() {

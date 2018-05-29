@@ -144,6 +144,8 @@ Check this account https://github.com/mtProtoProxy to see all the MTProto proxy 
 
 It is possible to use daemon script from this repo to integrate with any of these servers (except nodejs, for nodejs use pm2 upstart)
 
+Java implementation: https://github.com/makkarpov/mtoxy
+
 ## Another version of installator for MTProxy (madeline driven)
 
 Check the repo: https://github.com/aquigni/MTProxySystemd . It provides an easy-install shell script. It installs the same version of MTProto Proxy as provided in this [repo](https://github.com/danog/MadelineProto)

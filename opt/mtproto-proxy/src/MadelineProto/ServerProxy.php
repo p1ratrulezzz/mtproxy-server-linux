@@ -34,11 +34,6 @@ class ServerProxy extends Server {
    */
   protected $mutex;
 
-  /**
-   * @var \ByJG\Cache\Psr6\CachePool
-   */
-  protected $cachepool;
-
   protected $daemon_id = null;
 
   public function __construct($settings)
@@ -57,7 +52,7 @@ class ServerProxy extends Server {
     $this->mutex = new FlockMutex(fopen(tempnam(sys_get_temp_dir(), 'flock'), 'w'));
 
     $this->daemon_id = $settings['daemon_id'];
-    $this->cachepool = new CachePool(new FileSystemCacheEngine('cache_mtproxy'));
+    // $this->cachepool = new CachePool(new FileSystemCacheEngine('cache_mtproxy'));
 
     $this->log("Daemon id is {$this->daemon_id}");
 
@@ -67,20 +62,27 @@ class ServerProxy extends Server {
     });
 
     $this->cleanOldPids();
-    // $this->addPid($this->mypid);
+    $this->addPid($this->mypid);
+  }
+
+  /**
+   * @return \ByJG\Cache\Psr6\CachePool
+   */
+  protected function cachePool() {
+    return new CachePool(new ShmopCacheEngine(['prefix' => 'mtproxy_']), 0);
   }
 
   public function daemonInit() {
-    $item = $this->cachepool->getItem('daemon_ids');
+    $item = $this->cachePool()->getItem('daemon_ids');
     $daemon_ids = $item->isHit() ? $item->get() : [];
     $daemon_ids[$this->daemon_id] = $this->daemon_id;
 
     $item->set($daemon_ids);
-    $this->cachepool->save($item);
+    $this->cachePool()->save($item);
   }
 
-  protected function addPid($pid) {
-    $pool = $this->cachepool;
+  public function addPid($pid) {
+    $pool = $this->cachePool();
     $self = $this;
     $this->mutex->synchronized(function() use ($pid, $pool, &$self) {
       $item = $pool->getItem('daemon:' . $this->daemon_id);
@@ -94,8 +96,8 @@ class ServerProxy extends Server {
     });
   }
 
-  protected function delPid($pid) {
-    $pool = $this->cachepool;
+  public function delPid($pid) {
+    $pool = $this->cachePool();
     $self = $this;
 
     $this->mutex->synchronized(function() use ($pid, $pool, &$self) {
@@ -103,12 +105,16 @@ class ServerProxy extends Server {
       $pids = $item->isHit() ? $item->get() : [];
       if (isset($pids[$pid])) {
         unset($pids[$pid]);
+        $item->set($pids);
+
+        $pool->save($item);
+
         $self->log("Deleted process {$pid}");
       }
+      else {
+        $self->log("Process {$pid} doesn't exists");
+      }
 
-      $item->set($pids);
-
-      $pool->save($item);
     });
   }
 
@@ -124,7 +130,8 @@ class ServerProxy extends Server {
   }
 
   protected function cleanOldPidsUnsync() {
-    $item_daemon_ids = $this->cachepool->getItem('daemon_ids');
+    $pool = $this->cachePool();
+    $item_daemon_ids = $pool->getItem('daemon_ids');
     if ($item_daemon_ids->isHit()) {
       $ids = $item_daemon_ids->get();
 
@@ -135,7 +142,7 @@ class ServerProxy extends Server {
 
         $cid = 'daemon:' . $id;
 
-        $item = $this->cachepool->getItem($cid);
+        $item = $pool->getItem($cid);
         if ($item->isHit()) {
           $pids = $item->get();
           foreach ($pids as $pid) {
@@ -149,14 +156,14 @@ class ServerProxy extends Server {
            }
           }
 
-          $this->cachepool->deleteItem($item->getKey());
+          $pool->deleteItem($item->getKey());
         }
 
         unset($ids[$key]);
       }
 
       $item_daemon_ids->set($ids);
-      $this->cachepool->save($item_daemon_ids);
+      $pool->save($item_daemon_ids);
     }
   }
 
@@ -176,37 +183,58 @@ class ServerProxy extends Server {
       pcntl_signal_dispatch();
       try {
         if ($sock = $this->sock->accept()) {
-          $this->handle($sock);
+          $this->handle($sock, $unlimited_forks);
         }
       }
       catch (\danog\MadelineProto\Exception $e) {}
     }
   }
 
-  private function handle($socket) {
-    $forks = $this->cachepool->getItem('daemon:' . $this->daemon_id)->get();
+  private function handle($socket, $unlimited_forks = true) {
+    $forks = $this->cachePool()->getItem('daemon:' . $this->daemon_id)->get();
     $forks = $forks ? $forks : [];
 
+    $pid = getmypid();
     // @fixme: Set in config.inc
-    if (count($forks) < 8) {
+    if ($unlimited_forks || count($forks) < 8) {
       $pid = pcntl_fork();
-      if ($pid == -1) {
-        die('could not fork');
-      }
-      elseif ($pid) {
+
+      if ($pid > 0) {
         $this->addPid($pid);
         return $this->pids[] = $pid;
       }
     }
+    else {
+      $this->log('Too many forks are created already. Won\'t fork');
+    }
 
-    /**
-     * @var $handler \danog\MadelineProto\Server\Proxy
-     */
-    $handler = new $this->settings['handler']($socket, $this->settings['extra'], NULL, NULL, NULL, NULL, NULL);
-    $handler->loop();
+    if ($pid === -1) {
+      die('could not fork');
+    }
+    elseif ($pid === 0) {
+      // Child process
+      pcntl_wait($status);
+    }
 
-    $this->delPid(getmypid());
-    die;
+    try {
+      /**
+       * @var $handler \danog\MadelineProto\Server\Proxy
+       */
+      $handler = new $this->settings['handler']($socket, $this->settings['extra'], NULL, NULL, NULL, NULL, NULL);
+      if (method_exists($handler, 'setServer')) {
+        $handler->setServer($this);
+      }
+
+      $handler->loop();
+    }
+    catch (\Exception $e) {
+    }
+
+    // Only kill process if it is not the main process
+    if ($this->mypid != getmypid()) {
+      $this->delPid(getmypid());
+      die;
+    }
   }
 
   public function __destruct() {
@@ -232,6 +260,7 @@ class ServerProxy extends Server {
     switch ($sig) {
       case SIGTERM:
       case SIGINT:
+      case SIGKILL:
         $this->delPid(getmypid());
         exit;
       case SIGCHLD:

@@ -15,76 +15,26 @@ namespace danog\MadelineProto\Server;
 /*
  * Socket handler for server
  */
-class ProxyCustom extends \danog\MadelineProto\Connection
+use danog\MadelineProto\ServerProxy;
+
+class ProxyCustom extends Proxy
 {
-    public function __magic_construct($socket, $extra, $ip, $port, $protocol, $timeout, $ipv6)
-    {
-        \danog\MadelineProto\Logger::log('Got connection ' . getmypid() . '!');
-        \danog\MadelineProto\Magic::$pid = getmypid();
-        \danog\MadelineProto\Lang::$current_lang = [];
-        $this->sock = $socket;
-        $this->sock->setBlocking(true);
-        $this->must_open = false;
-        $this->sock->setOption(\SOL_SOCKET, \SO_RCVTIMEO, $extra['timeout']);
-        $this->sock->setOption(\SOL_SOCKET, \SO_SNDTIMEO, $extra['timeout']);
-        $this->logger = new \danog\MadelineProto\Logger(3);
-        $this->extra = $extra;
-        if ($this->extra['madeline'] instanceof \danog\MadelineProto\API) {
-            $this->extra['madeline'] = $this->extra['madeline']->API->datacenter->sockets;
-        }
+
+  /**
+   * @var \danog\MadelineProto\ServerProxy
+   */
+  protected $server = null;
+
+  public function __destruct()
+  {
+    parent::__destruct();
+
+    if ($this->server instanceof ServerProxy) {
+      $this->server->delPid(getmypid());
     }
-    public function __destruct()
-    {
-        \danog\MadelineProto\Logger::log('Closing fork ' . getmypid() . '!');
-        unset($this->sock);
-    }
-    public function loop()
-    {
-        $this->protocol = 'obfuscated2';
-        $random = $this->sock->read(64);
-        $reversed = strrev(substr($random, 8, 48));
-        $key = substr($random, 8, 32);
-        $keyRev = substr($reversed, 0, 32);
-        if (isset($this->extra['secret'])) {
-            $key = hash('sha256', $key . $this->extra['secret'], true);
-            $keyRev = hash('sha256', $keyRev . $this->extra['secret'], true);
-        }
-        $this->obfuscated = ['encryption' => new \phpseclib\Crypt\AES('ctr'), 'decryption' => new \phpseclib\Crypt\AES('ctr')];
-        $this->obfuscated['encryption']->enableContinuousBuffer();
-        $this->obfuscated['decryption']->enableContinuousBuffer();
-        $this->obfuscated['decryption']->setKey($key);
-        $this->obfuscated['decryption']->setIV(substr($random, 40, 16));
-        $this->obfuscated['encryption']->setKey($keyRev);
-        $this->obfuscated['encryption']->setIV(substr($reversed, 32, 16));
-        $random = substr_replace($random, substr(@$this->obfuscated['decryption']->encrypt($random), 56, 8), 56, 8);
-        if (substr($random, 56, 4) !== str_repeat(chr(0xef), 4)) {
-            throw new \danog\MadelineProto\Exception('Wrong protocol version');
-        }
-        $dc = abs(unpack('s', substr($random, 60, 2))[1]);
-        $socket = $this->extra['madeline'][$dc];
-        $socket->__construct($socket->proxy, $socket->extra, $socket->ip, $socket->port, $socket->protocol, $timeout = $this->extra['timeout'], $socket->ipv6);
-        unset($this->extra);
-        $write = [];
-        $except = [];
-        while (true) {
-            pcntl_signal_dispatch();
-            try {
-                $read = [$this->getSocket(), $socket->getSocket()];
-                \Socket::select($read, $write, $except, $timeout);
-                if (isset($read[0])) {
-                    //\danog\MadelineProto\Logger::log("Will write to DC $dc on ".\danog\MadelineProto\Magic::$pid);
-                    $socket->send_message($this->read_message());
-                }
-                if (isset($read[1])) {
-                    //\danog\MadelineProto\Logger::log("Will read from DC $dc on ".\danog\MadelineProto\Magic::$pid);
-                    $this->send_message($socket->read_message());
-                }
-                if (empty($read)) {
-                    throw new \danog\MadelineProto\NothingInTheSocketException('Inactivity');
-                }
-            } catch (\danog\MadelineProto\NothingInTheSocketException $e) {
-                exit;
-            }
-        }
-    }
+  }
+
+  public function setServer(ServerProxy $server) {
+    $this->server = $server;
+  }
 }

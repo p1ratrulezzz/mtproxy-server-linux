@@ -63,7 +63,8 @@ function replaceable_echo($message, $force_clear_lines = NULL) {
 define('EOL_CR', PHP_EOL);
 while (true) {
   ob_start();
-  $cachepool = new \ByJG\Cache\Psr6\CachePool(new \ByJG\Cache\Psr16\FileSystemCacheEngine('cache_mtproxy'));
+  // $cachepool = new \ByJG\Cache\Psr6\CachePool(new \ByJG\Cache\Psr16\FileSystemCacheEngine('cache_mtproxy'));
+  $cachepool = new \ByJG\Cache\Psr6\CachePool(new \ByJG\Cache\Psr16\ShmopCacheEngine(['prefix' => 'mtproxy_']), 0);
   $item_daemon_ids = $cachepool->getItem('daemon_ids');
   if ($item_daemon_ids->isHit()) {
     foreach ($item_daemon_ids->get() as $id) {

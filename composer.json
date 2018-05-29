@@ -10,6 +10,18 @@
     ],
     "require": {
         "byjg/cache-engine": "4.0.*",
-        "malkusch/lock": "^1.1"
-    }
+        "malkusch/lock": "^1.1",
+        "danog/madelineproto": "dev-master",
+        "phpseclib/phpseclib": "dev-master"
+    },
+    "config": {
+        "vendor-dir": "opt/mtproto-proxy/vendor"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/danog/phpseclib.git"
+        }
+    ]
 }

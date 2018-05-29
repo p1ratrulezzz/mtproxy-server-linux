@@ -184,13 +184,20 @@ class ServerProxy extends Server {
   }
 
   private function handle($socket) {
-    $pid = pcntl_fork();
-    if ($pid == -1) {
-      die('could not fork');
+    $forks = $this->cachepool->getItem('daemon:' . $this->daemon_id)->get();
+    $forks = $forks ? $forks : [];
+
+    // @fixme: Set in config.inc
+    if (count($forks) < 8) {
+      $pid = pcntl_fork();
+      if ($pid == -1) {
+        die('could not fork');
+      }
+      elseif ($pid) {
+        return $this->pids[] = $pid;
+      }
     }
-    elseif ($pid) {
-      return $this->pids[] = $pid;
-    }
+
     /**
      * @var $handler \danog\MadelineProto\Server\Proxy
      */

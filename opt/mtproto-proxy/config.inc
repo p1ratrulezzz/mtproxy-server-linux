@@ -12,9 +12,9 @@ return [
       'enabled' => false, // if set to false, proxy not used
       'type' => 'socks5', // or http,
       'address' => '', // address of the proxy,
-      'auth' => '
-            'username' => 'username',
-            'password' => 'password',
-      '.
+      'auth' => [
+        'username' => 'username',
+        'password' => 'password',
+      ],
   ],
 ];

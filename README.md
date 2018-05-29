@@ -28,6 +28,7 @@ The initial daemon file is in https://github.com/danog/MadelineProto (don't forg
    apt-get update
    apt-get install php7.0-cli php7.0-xml php7.0-curl php7.0-opcache php7.0-zip
    apt-get install composer
+   wget -O composer-setup.php https://getcomposer.org/installer && php composer-setup.php --install-dir=$(dirname $(which composer)) --filename=composer && rm composer-setup.php
 ```
 
 2. Create mtproxy user

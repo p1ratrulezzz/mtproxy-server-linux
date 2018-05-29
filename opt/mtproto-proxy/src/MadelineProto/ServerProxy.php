@@ -176,7 +176,7 @@ class ServerProxy extends Server {
       pcntl_signal_dispatch();
       try {
         if ($sock = $this->sock->accept()) {
-          $this->addPid($this->handle($sock));
+          $this->handle($sock);
         }
       }
       catch (\danog\MadelineProto\Exception $e) {}
@@ -194,6 +194,7 @@ class ServerProxy extends Server {
         die('could not fork');
       }
       elseif ($pid) {
+        $this->addPid($pid);
         return $this->pids[] = $pid;
       }
     }

@@ -9,6 +9,16 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 
 # Testing  MTProto proxy servers
 
+### C (Official Telegram MTProxy)
+
+Note: It is a very first version so it can be quite tricky to make it work, though it is possible. Also check my fork with tutorials here https://github.com/p1ratrulezzz/MTProxy-1
+
+Repo: https://github.com/TelegramMessenger/MTProxy
+
+Server #1: https://t.me/proxy?server=gorilla.proxy.plez.me&port=6968&secret=469fe09b277900a8ae91dcefa736056b
+
+And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
+
 ### PHP (this repo)  
 
 Note: there is an issue with Android clients. It's impossible to send messages. Desktop clients work great.

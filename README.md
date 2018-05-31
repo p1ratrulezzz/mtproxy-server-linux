@@ -35,7 +35,7 @@ Repo: https://github.com/FreedomPrevails/JSMTProxy
 
 Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
 
-Server #1: https://t.me/proxy?server=proxyold.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
+Server #1: https://t.me/proxy?server=homyak.evgeniy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
 
 ## [Python](https://github.com/alexbers/mtprotoproxy)
 
@@ -43,7 +43,7 @@ Note: Requires to install python3 and python3-crypto packages via apt-get
 
 Repo: https://github.com/alexbers/mtprotoproxy
 
-Server #1: https://t.me/proxy?server=proxyold.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
+Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382 (down)
 
 ## [Java](https://github.com/makkarpov/mtoxy)
 
@@ -51,7 +51,9 @@ Note: requires JRE 8 or JDK 8. On version 9 and higher won't work.
 
 Repo: https://github.com/makkarpov/mtoxy
 
-Server #1: https://t.me/proxy?server=proxyold.plez.me&port=8443&secret=4A3A2A4903C8F00D6863E2317420F038
+Server #1: https://t.me/proxy?server=horek.drakula.plez.me&port=8443&secret=4A3A2A4903C8F00D6863E2317420F038
+
+Server #2: https://t.me/proxy?server=kot.boris.plez.me&port=6968&secret=ace63eff7aefb133be6e72f5f57d8382
 
 # Before you start installation
 

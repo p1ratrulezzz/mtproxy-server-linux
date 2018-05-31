@@ -11,7 +11,7 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 
 ### C (Official Telegram MTProxy)
 
-Note: It is a very first version so it can be quite tricky to make it work, though it is possible. Also check my fork with tutorials here https://github.com/p1ratrulezzz/MTProxy-1
+Note: It is a very first version so it can be quite tricky to make it work, though it is possible. Also check my fork with tutorials here https://github.com/p1ratrulezzz/MTProxy-1 and here https://p1ratrulezzz.me/2018/06/creating-your-own-official-mtproto-proxy-with-channel-promotion-very-easy-way.html
 
 Repo: https://github.com/TelegramMessenger/MTProxy
 

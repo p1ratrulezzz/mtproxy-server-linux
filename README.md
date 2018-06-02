@@ -23,9 +23,7 @@ And yes. This server does have an ability to set promoted channel (check my fork
 
 Note: there is an issue with Android clients. It's impossible to send messages. Desktop clients work great.
 
-Server #1: https://t.me/proxy?server=54.38.132.214&port=6666&secret=7eb5a9c0b76971496098bda828b71236 (down)
-
-Server #2: https://t.me/proxy?server=verblud.nikita.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f (dev-master branch)
+Server #1: https://t.me/proxy?server=verblud.nikita.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f (dev-master branch)
 
 Pleae, test the servers above to gather statistics on CPU load and etc. Version 0.1.6 has an issue with creating a lot of zombie forks and killing the server completely. Set memory_limit to 32MB on your server per PHP script to save some resources.
 

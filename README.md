@@ -15,7 +15,7 @@ Note: It is a very first version so it can be quite tricky to make it work, thou
 
 Repo: https://github.com/TelegramMessenger/MTProxy
 
-Server #1: https://t.me/proxy?server=gorilla.proxy.plez.me&port=6968&secret=469fe09b277900a8ae91dcefa736056b
+Server #1: https://t.me/proxy?server=gorilla.anton.plez.me&port=6968&secret=469fe09b277900a8ae91dcefa736056b
 
 And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
 
@@ -25,7 +25,7 @@ Note: there is an issue with Android clients. It's impossible to send messages. 
 
 Server #1: https://t.me/proxy?server=54.38.132.214&port=6666&secret=7eb5a9c0b76971496098bda828b71236 (down)
 
-Server #2: https://t.me/proxy?server=proxyold.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f (dev-master branch)
+Server #2: https://t.me/proxy?server=verblud.nikita.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f (dev-master branch)
 
 Pleae, test the servers above to gather statistics on CPU load and etc. Version 0.1.6 has an issue with creating a lot of zombie forks and killing the server completely. Set memory_limit to 32MB on your server per PHP script to save some resources.
 

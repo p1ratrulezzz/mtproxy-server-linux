@@ -41,7 +41,9 @@ Note: Requires to install python3 and python3-crypto packages via apt-get
 
 Repo: https://github.com/alexbers/mtprotoproxy
 
-Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382 (down)
+Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=469fe09b277900a8ae91dcefa736056b
+
+Server #2: https://t.me/proxy?server=strekoza.zhanna.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
 
 ## [Java](https://github.com/makkarpov/mtoxy)
 

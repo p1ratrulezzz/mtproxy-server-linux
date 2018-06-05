@@ -9,7 +9,31 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 
 # Testing  MTProto proxy servers
 
+## [Python](https://github.com/alexbers/mtprotoproxy) - HIGHLY RECOMMENDED!!!
+
+#### Supports channel advertising, fully supports ipv6 and the easiest to installl!
+
+Note: Requires to install python3 and python3-crypto packages via apt-get
+
+Installation:
+```bash
+   cd /opt
+   git clone https://github.com/alexbers/mtprotoproxy.git
+   cd mtprotoproxy
+   apt-get install python3 python3-crypto
+   ## edit config.py file with desired port and proxy tag and start! ##
+   python3 mtprotoproxy.py
+```
+
+Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
+
+Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=469fe09b277900a8ae91dcefa736056b
+
+Server #2: https://t.me/proxy?server=strekoza.zhanna.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
+
 ### C (Official Telegram MTProxy)
+
+Opinions: Difficult to install. Great use of resources, supports channel advertising, works stable if was successfully installed. Doesn't work on some servers expecially on servers located at Russia (even using VPN). I do not recommend to install unless you want to advertise your channel (in this case it's better to use Python version anyway).
 
 Note: It is a very first version so it can be quite tricky to make it work, though it is possible. Also check my fork with tutorials here https://github.com/p1ratrulezzz/MTProxy-1 and here https://p1ratrulezzz.me/2018/06/creating-your-own-official-mtproto-proxy-with-channel-promotion-very-easy-way.html
 
@@ -34,16 +58,6 @@ Repo: https://github.com/FreedomPrevails/JSMTProxy
 Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
 
 Server #1: https://t.me/proxy?server=homyak.evgeniy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
-
-## [Python](https://github.com/alexbers/mtprotoproxy)
-
-Note: Requires to install python3 and python3-crypto packages via apt-get
-
-Repo: https://github.com/alexbers/mtprotoproxy
-
-Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=469fe09b277900a8ae91dcefa736056b
-
-Server #2: https://t.me/proxy?server=strekoza.zhanna.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
 
 ## [Java](https://github.com/makkarpov/mtoxy)
 

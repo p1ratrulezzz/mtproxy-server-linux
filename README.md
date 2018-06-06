@@ -29,6 +29,8 @@ Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with fr
 
 Server #1: https://t.me/proxy?server=gorilla.anton.plez.me&port=6968&secret=469fe09b277900a8ae91dcefa736056b
 
+(Note: this server will be closed soon, it is available only for short time for testing purposes)
+
 ### C (Official Telegram MTProxy)
 
 Opinions: Difficult to install. Great use of resources, supports channel advertising, works stable if was successfully installed. Doesn't work on some servers expecially on servers located at Russia (even using VPN). I do not recommend to install unless you want to advertise your channel (in this case it's better to use Python version anyway).

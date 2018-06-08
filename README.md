@@ -16,7 +16,9 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 Note: Requires to install python3 and python3-crypto packages via apt-get
 Installation of docker version: https://p1ratrulezzz.me/2018/06/eshhe-odin-variant-mtproto-proxy-s-reklamoj.html
 
-Installation:
+Installation on CentOS (automatic): Check the tutorial in repo https://github.com/HirbodBehnam/MTProtoProxyCentOSInstall and don't forget to star.
+
+Installation on Ubuntu/Debian:
 ```bash
    cd /opt
    git clone https://github.com/alexbers/mtprotoproxy.git

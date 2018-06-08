@@ -28,8 +28,6 @@ Installation:
 
 Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
 
-Server #1: https://t.me/proxy?server=gorilla.anton.plez.me&port=6968&secret=469fe09b277900a8ae91dcefa736056b
-
 (Note: this server will be closed soon, it is available only for short time for testing purposes)
 
 ### C (Official Telegram MTProxy)

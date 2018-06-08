@@ -14,6 +14,7 @@ Plus: Sponsored channels are coming. That means that your proxy can force your u
 #### Supports channel advertising, fully supports ipv6 and the easiest to installl!
 
 Note: Requires to install python3 and python3-crypto packages via apt-get
+Installation of docker version: https://p1ratrulezzz.me/2018/06/eshhe-odin-variant-mtproto-proxy-s-reklamoj.html
 
 Installation:
 ```bash

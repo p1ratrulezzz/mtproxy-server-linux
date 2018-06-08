@@ -20,7 +20,7 @@ Installation on CentOS (automatic): Check the tutorial in repo https://github.co
 
 Easy install on CentOS command
 ```bash
-wget -O - https://git.io/vhgUt | sudo -E bash MTProtoProxyInstall.sh
+wget -O - https://git.io/vhgUt | sudo -E bash -
 ```
 
 Installation on Ubuntu/Debian:

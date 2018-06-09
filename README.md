@@ -45,9 +45,7 @@ Note: It is a very first version so it can be quite tricky to make it work, thou
 
 Repo: https://github.com/TelegramMessenger/MTProxy
 
-Server #1: https://t.me/proxy?server=koshka.larisa.plez.me&port=6669&secret=469fe09b277900a8ae91dcefa736056b
-
-Server #2: https://t.me/proxy?server=strekoza.zhanna.plez.me&port=6669&secret=ace63eff7aefb133be6e72f5f57d8382
+Server #1: https://t.me/proxy?server=albert-einstein.servehttp.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
 
 And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
 

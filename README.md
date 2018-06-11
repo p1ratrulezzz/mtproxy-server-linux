@@ -35,7 +35,7 @@ Installation on Ubuntu/Debian:
 
 Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
 
-(Note: this server will be closed soon, it is available only for short time for testing purposes)
+Server #1: https://t.me/proxy?server=albert-einstein.servehttp.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
 
 ### C (Official Telegram MTProxy)
 
@@ -44,8 +44,6 @@ Opinions: Difficult to install. Great use of resources, supports channel adverti
 Note: It is a very first version so it can be quite tricky to make it work, though it is possible. Also check my fork with tutorials here https://github.com/p1ratrulezzz/MTProxy-1 and here https://p1ratrulezzz.me/2018/06/creating-your-own-official-mtproto-proxy-with-channel-promotion-very-easy-way.html
 
 Repo: https://github.com/TelegramMessenger/MTProxy
-
-Server #1: https://t.me/proxy?server=albert-einstein.servehttp.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
 
 And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
 

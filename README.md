@@ -35,7 +35,9 @@ Installation on Ubuntu/Debian:
 
 Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
 
-Server #1: https://t.me/proxy?server=albert-einstein.servehttp.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
+Server #1: https://t.me/proxy?server=nikola.tesla.dnsd.info&port=443&secret=469fe09b277900a8ae91dcefa736056b
+
+Server #2(tmp): https://t.me/proxy?server=cherchil.dnsdynamic.com &port=443&secret=469fe09b277900a8ae91dcefa736056b
 
 ### C (Official Telegram MTProxy)
 

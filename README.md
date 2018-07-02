@@ -35,9 +35,7 @@ Installation on Ubuntu/Debian:
 
 Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
 
-Server #1: https://t.me/proxy?server=nikola.tesla.dnsd.info&port=443&secret=469fe09b277900a8ae91dcefa736056b
-
-Server #2(tmp): https://t.me/proxy?server=cherchil.dnsdynamic.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
+Server #1 (tmp): https://t.me/proxy?server=cherchil.dnsdynamic.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
 
 ### C (Official Telegram MTProxy)
 
@@ -48,6 +46,8 @@ Note: It is a very first version so it can be quite tricky to make it work, thou
 Repo: https://github.com/TelegramMessenger/MTProxy
 
 And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
+
+Server #1: https://t-do.ru/proxy?server=zhenya.morgunova.dnsdynamic.com&port=587&secret=ace63eff7aefb133be6e72f5f57d8382
 
 ### PHP (this repo)  
 

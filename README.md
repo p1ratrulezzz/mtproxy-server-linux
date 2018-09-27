@@ -47,7 +47,7 @@ Repo: https://github.com/TelegramMessenger/MTProxy
 
 And yes. This server does have an ability to set promoted channel (check my forked repo and blogpost for tutorial)
 
-Server #1: https://t-do.ru/proxy?server=zhenya.morgunova.dnsdynamic.com&port=587&secret=ace63eff7aefb133be6e72f5f57d8382
+Server #1: https://t-do.ru/proxy?server=hrushka.peppa.dns-cloud.net&port=587&secret=ddace63eff7aefb133be6e72f5f57d8382
 
 ### PHP (this repo)  
 

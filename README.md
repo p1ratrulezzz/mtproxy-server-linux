@@ -53,8 +53,6 @@ Server #1: https://t-do.ru/proxy?server=hrushka.peppa.dns-cloud.net&port=587&sec
 
 Note: there is an issue with Android clients. It's impossible to send messages. Desktop clients work great.
 
-Server #1: https://t.me/proxy?server=verblud.nikita.plez.me&port=6667&secret=e1fba1875a6d8dfb73abf3959c2c469f (dev-master branch)
-
 Pleae, test the servers above to gather statistics on CPU load and etc. Version 0.1.6 has an issue with creating a lot of zombie forks and killing the server completely. Set memory_limit to 32MB on your server per PHP script to save some resources.
 
 ## [NodeJS](https://github.com/FreedomPrevails/JSMTProxy)
@@ -63,17 +61,11 @@ Repo: https://github.com/FreedomPrevails/JSMTProxy
 
 Note: if a lot of people are connected and uploading files, server will suffer from high CPU load 
 
-Server #1: https://t.me/proxy?server=homyak.evgeniy.plez.me&port=6969&secret=ace63eff7aefb133be6e72f5f57d8382
-
 ## [Java](https://github.com/makkarpov/mtoxy)
 
 Note: requires JRE 8 or JDK 8. On version 9 and higher won't work.
 
 Repo: https://github.com/makkarpov/mtoxy
-
-Server #1: https://t.me/proxy?server=horek.drakula.plez.me&port=8443&secret=4A3A2A4903C8F00D6863E2317420F038
-
-Server #2: https://t.me/proxy?server=kot.boris.plez.me&port=6968&secret=ace63eff7aefb133be6e72f5f57d8382
 
 # Before you start installation
 

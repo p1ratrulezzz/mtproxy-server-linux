@@ -35,8 +35,6 @@ Installation on Ubuntu/Debian:
 
 Repo: https://github.com/alexbers/mtprotoproxy (Star this repo and share with friends)
 
-Server #1 (tmp): https://t.me/proxy?server=cherchil.dnsdynamic.com&port=443&secret=469fe09b277900a8ae91dcefa736056b
-
 ### C (Official Telegram MTProxy)
 
 Opinions: Difficult to install. Great use of resources, supports channel advertising, works stable if was successfully installed. Doesn't work on some servers expecially on servers located at Russia (even using VPN). I do not recommend to install unless you want to advertise your channel (in this case it's better to use Python version anyway).
